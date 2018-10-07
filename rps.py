@@ -5,8 +5,8 @@ choices = ("rock", "paper", "scissors")
 def formating(string_value):
     unformated_string = str(string_value)
     possibilities = ("(", "'", ")", ",")
-    for symbol in unformated_string:
-        unformated_string = unformated_string.replace(symbol,"")
+    for symbol in possibilities:
+        unformated_string = unformated_string.replace(symbol ,"")
     return unformated_string
 
 def menu(choices):
