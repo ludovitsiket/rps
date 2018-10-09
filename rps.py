@@ -17,6 +17,10 @@ def menu(choices):
     print('Choices: ',formated_string)
     print('For exit game press x.')
 
+def require():
+    print("Script require python 3.x for properly function.")
+    sys.exit(0)
+
 def game_result(player_choice, computer_choice, player_score, computer_score):
     p_ch = player_choice
     c_ch = computer_choice
@@ -34,8 +38,8 @@ def high_score(player_score, computer_score):
     print("player score:", player_score, "    computer score:", computer_score)
 
 def game(player_score, computer_score):
-    player_choice = input("Enter your choice: ")
-    if True:
+    try:
+        player_choice = input("Enter your choice: ")
         if player_choice in choices:
                 print("player choice", player_choice)
                 index = random.randint(0,2)
@@ -51,6 +55,8 @@ def game(player_score, computer_score):
                 sys.exit(0)
             else:
                 game(player_score, computer_score)
+    except NameError:
+        require()
 
 def main():
     menu(choices)
