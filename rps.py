@@ -35,7 +35,11 @@ def game_result(player_choice, computer_choice, player_score, computer_score):
     return (result, player_score, computer_score)
 
 def high_score(player_score, computer_score):
-    print("player score:", player_score, "    computer score:", computer_score)
+    result = ("player score:", player_score, "    computer score:", computer_score)
+    result = formating(result)
+    print(result)
+    with open("score.txt","w") as score:
+        score.write(result)
 
 def game(player_score, computer_score):
     try:
