@@ -1,4 +1,4 @@
-import sys, random
+import sys, random, datetime
 
 choices = ("rock", "paper", "scissors")
 player_score = 0
@@ -34,12 +34,19 @@ def game_result(player_choice, computer_choice, player_score, computer_score):
         result = "Computer win !"
     return (result, player_score, computer_score)
 
+def actual_date():
+    now = str(datetime.datetime.now())
+    date = (now[:10])
+    return date
+
 def high_score(player_score, computer_score):
     result = ("player score:", player_score, "    computer score:", computer_score)
     result = formating(result)
     print(result)
+    date = actual_date()
+    to_file = (date +" :"+"      "+ result)
     with open("score.txt","w") as score:
-        score.write(result)
+        score.write(to_file)
 
 def game(player_score, computer_score):
     try:
