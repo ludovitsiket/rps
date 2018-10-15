@@ -12,7 +12,15 @@ def formating(string_value):
         formated_string = unformated_string
     return formated_string
 
+def logo(text):
+    count = len(text)
+    print("-"*count) 
+    print(text)
+    print("-"*count)
+
 def menu(choices):
+    text = "Rock - Paper - Scissors"
+    logo(text)
     formated_string = formating(choices)
     print('Choices: ',formated_string)
     print('For exit game press x.')
@@ -40,7 +48,7 @@ def actual_date():
     return date
 
 def high_score(player_score, computer_score):
-    result = ("player score:", player_score, "    computer score:", computer_score)
+    result = ("Player score:", player_score, "    Computer score:", computer_score)
     result = formating(result)
     print(result)
     date = actual_date()
@@ -52,10 +60,10 @@ def game(player_score, computer_score):
     try:
         player_choice = input("Enter your choice: ")
         if player_choice in choices:
-                print("player choice", player_choice)
+                print("Player choice", player_choice)
                 index = random.randint(0,2)
                 computer_choice = choices[index]
-                print("computer choice:", computer_choice)
+                print("Computer choice:", computer_choice)
                 result, player_score, computer_score = game_result(player_choice, computer_choice, player_score, computer_score)
                 print(result)
                 high_score(player_score, computer_score)
