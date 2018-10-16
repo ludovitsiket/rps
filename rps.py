@@ -44,8 +44,13 @@ def game_result(player_choice, computer_choice, player_score, computer_score):
 
 def actual_date():
     now = str(datetime.datetime.now())
-    date = (now[:10])
+    date = (now[:-10])
     return date
+
+def writing_score(value):
+    score_file = "score.txt"
+    with open(score_file,"a+") as score:
+        score.write(value+"\n")
 
 def high_score(player_score, computer_score):
     result = ("Player score:", player_score, "    Computer score:", computer_score)
@@ -53,24 +58,25 @@ def high_score(player_score, computer_score):
     print(result)
     date = actual_date()
     to_file = (date +" :"+"      "+ result)
-    with open("score.txt","w") as score:
-        score.write(to_file)
+    return (to_file, result)
 
 def game(player_score, computer_score):
     try:
         player_choice = input("Enter your choice: ")
         if player_choice in choices:
-                print("Player choice", player_choice)
+                print("Player choice:", player_choice)
                 index = random.randint(0,2)
                 computer_choice = choices[index]
                 print("Computer choice:", computer_choice)
                 result, player_score, computer_score = game_result(player_choice, computer_choice, player_score, computer_score)
                 print(result)
-                high_score(player_score, computer_score)
+                to_file, whole_result = high_score(player_score, computer_score)
                 game(player_score, computer_score)
         else:
             if player_choice == "x":
                 print("Bye.")
+                to_file, whole_result = high_score(player_score, computer_score)
+                writing_score(to_file)
                 sys.exit(0)
             else:
                 game(player_score, computer_score)
