@@ -58,26 +58,33 @@ def high_score(player_score, computer_score):
     print(result)
     date = actual_date()
     to_file = (date +" :"+"      "+ result)
-    return (to_file, result)
+    return to_file
+
+def game_progress(player_choice):
+    print("Player choice:", player_choice)
+    index = random.randint(0,2)
+    computer_choice = choices[index]
+    print("Computer choice:", computer_choice)
+    return computer_choice
+
+def save_to_file(player_score, computer_score):
+    print("Bye.")
+    to_file = high_score(player_score, computer_score)
+    writing_score(to_file)
+    sys.exit(0)
 
 def game(player_score, computer_score):
     try:
         player_choice = input("Enter your choice: ")
         if player_choice in choices:
-                print("Player choice:", player_choice)
-                index = random.randint(0,2)
-                computer_choice = choices[index]
-                print("Computer choice:", computer_choice)
+                computer_choice = game_progress(player_choice)
                 result, player_score, computer_score = game_result(player_choice, computer_choice, player_score, computer_score)
                 print(result)
-                to_file, whole_result = high_score(player_score, computer_score)
+                to_file = high_score(player_score, computer_score)
                 game(player_score, computer_score)
         else:
             if player_choice == "x":
-                print("Bye.")
-                to_file, whole_result = high_score(player_score, computer_score)
-                writing_score(to_file)
-                sys.exit(0)
+                 save_to_file(player_score, computer_score)
             else:
                 game(player_score, computer_score)
     except NameError:
