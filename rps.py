@@ -89,6 +89,9 @@ def game(player_score, computer_score):
                 game(player_score, computer_score)
     except NameError:
         require()
+    except KeyboardInterrupt:
+        print("\nBye.")
+        sys.exit()
 
 def main():
     menu(choices)
