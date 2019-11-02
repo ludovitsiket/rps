@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import datetime
 import random
 import sys
@@ -24,10 +26,10 @@ def logo(text):
     print("-" * count)
 
 
-def menu(choices):
-    text = "Rock - Paper - Scissors"
+def menu(values):
+    text = "rock - paper - scissors"
     logo(text)
-    formated_string = formating(choices)
+    formated_string = formating(values)
     print('Choices: ', formated_string)
     print('For exit game press x.')
 
@@ -37,19 +39,17 @@ def require():
     sys.exit(0)
 
 
-def game_result(player_choice, computer_choice, player_score, computer_score):
-    p_ch = player_choice
-    c_ch = computer_choice
-    if p_ch == c_ch:
+def game_result(choice1, choice2, value1, value2):
+    if choice1 == choice2:
         result = "Tie!"
-    elif (p_ch == "rock" and c_ch == "scissors") or (p_ch == "paper" and c_ch == "rock") or (
-            p_ch == "scissors" and c_ch == "paper"):
-        player_score += 1
+    elif (choice1 == "rock" and choice2 == "scissors") or (choice1 == "paper" and choice2 == "rock") or (
+            choice1 == "scissors" and choice2 == "paper"):
+        value1 += 1
         result = "Player win !"
     else:
-        computer_score += 1
+        value2 += 1
         result = "Computer win !"
-    return result, player_score, computer_score
+    return result, value1, value2
 
 
 def actual_date():
@@ -64,8 +64,8 @@ def writing_score(value):
         score.write(value + "\n")
 
 
-def high_score(player_score, computer_score):
-    result = ("Player score:", player_score, "    Computer score:", computer_score)
+def high_score(value1, value2):
+    result = ("Player score:", value1, "    Computer score:", value2)
     result = formating(result)
     print(result)
     date = actual_date()
@@ -80,27 +80,32 @@ def game_progress():
     return computer_choice
 
 
-def save_to_file(player_score, computer_score):
+def save_to_file(value1, value2):
     print("Bye.")
-    to_file = high_score(player_score, computer_score)
+    to_file = high_score(value1, value2)
     writing_score(to_file)
-    sys.exit(0)
+    sys.exit()
 
 
-def game(player_score, computer_score):
+def exit_game(choice, value1, value2):
+    if choice == "x":
+        save_to_file(value1, value2)
+    else:
+        game(value1, value2)
+
+
+def game(value1, value2):
     try:
         player_choice = input("Enter your choice: ")
         if player_choice in choices:
             computer_choice = game_progress()
-            result, player_score, computer_score = game_result(player_choice, computer_choice, player_score,
-                                                               computer_score)
+            result, value1, value2 = game_result(player_choice, computer_choice, value1,
+                                                 value2)
             print(result)
-            game(player_score, computer_score)
+            game(value1, value2)
         else:
-            if player_choice == "x":
-                save_to_file(player_score, computer_score)
-            else:
-                game(player_score, computer_score)
+            exit_game(player_choice, value1, value2)
+            pass
     except NameError:
         require()
     except KeyboardInterrupt:
