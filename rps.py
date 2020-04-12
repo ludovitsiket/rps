@@ -84,7 +84,7 @@ def save_to_file(value1, value2):
     print("Bye.")
     to_file = high_score(value1, value2)
     writing_score(to_file)
-    sys.exit()
+    sys.exit(0)
 
 
 def exit_game(choice, value1, value2):
@@ -92,6 +92,7 @@ def exit_game(choice, value1, value2):
         save_to_file(value1, value2)
     else:
         game(value1, value2)
+    sys.exit(0)
 
 
 def game(value1, value2):
@@ -105,12 +106,11 @@ def game(value1, value2):
             game(value1, value2)
         else:
             exit_game(player_choice, value1, value2)
-            pass
     except NameError:
         require()
     except KeyboardInterrupt:
         print("\nBye.")
-        sys.exit()
+        sys.exit(0)
 
 
 def main():
@@ -118,4 +118,5 @@ def main():
     game(player_score, computer_score)
 
 
-main()
+if __name__ == '__main__':
+    main()
