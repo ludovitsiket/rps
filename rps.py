@@ -4,18 +4,17 @@ import datetime
 import random
 import sys
 
-choices = ("rock", "paper", "scissors")
+choices = ("r", "p", "s")
 player_score = 0
 computer_score = 0
 
 
-# noinspection PyUnboundLocalVariable
 def formating(string_value):
-    unformated_string = str(string_value)
+    unformated = str(string_value)
     possibilities = ("(", "'", ")", ",")
     for symbol in possibilities:
-        unformated_string = unformated_string.replace(symbol, "")
-        formated_string = unformated_string
+        unformated = unformated.replace(symbol, "")
+        formated_string = unformated
     return formated_string
 
 
@@ -39,11 +38,13 @@ def require():
     sys.exit(0)
 
 
-def game_result(choice1, choice2, value1, value2):
-    if choice1 == choice2:
+def game_result(ch1, ch2, value1, value2):
+    if ch1 == ch2:
         result = "Tie!"
-    elif (choice1 == "rock" and choice2 == "scissors") or (choice1 == "paper" and choice2 == "rock") or (
-            choice1 == "scissors" and choice2 == "paper"):
+    elif (
+        ch1 == "rock" and ch2 == "scissors") or (
+            ch1 == "paper" and ch2 == "rock") or (
+            ch1 == "scissors" and ch2 == "paper"):
         value1 += 1
         result = "Player win !"
     else:
@@ -95,17 +96,16 @@ def exit_game(choice, value1, value2):
     sys.exit(0)
 
 
-def game(value1, value2):
+def game(v1, v2):
     try:
-        player_choice = input("Enter your choice: ")
-        if player_choice in choices:
+        pl_ch = input("Enter your choice: ")
+        if pl_ch in choices:
             computer_choice = game_progress()
-            result, value1, value2 = game_result(player_choice, computer_choice, value1,
-                                                 value2)
+            result, v1, v2 = game_result(pl_ch, computer_choice, v1, v2)
             print(result)
-            game(value1, value2)
+            game(v1, v2)
         else:
-            exit_game(player_choice, value1, value2)
+            exit_game(pl_ch, v1, v2)
     except NameError:
         require()
     except KeyboardInterrupt:
